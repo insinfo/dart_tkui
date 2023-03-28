@@ -1,0 +1,20 @@
+#name: 'TclBindings'
+name: 'TkBindings'
+description: 'Bindings to Tcl'
+#output: 'lib/src/tcl_bindings.dart'
+output: 'lib/src/tk_bindings.dart'
+llvm-path:     
+  - 'C:\llvm'      
+headers:
+  entry-points:
+    - 'C:\MyDartProjects\tkui\headers\tk86.h' 
+  include-directives:
+    #- '**sftp.h'
+    #- 'libssh/include/libssh/**'
+    - 'C:\MyDartProjects\tkui\headers\**'
+#compiler-opts:
+  #- '-Ilibssh/'
+
+
+
+#dart run ffigen --config ffigen.yaml

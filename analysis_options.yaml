@@ -1,0 +1,14 @@
+# Defines a default set of lint rules enforced for
+# projects. For details and rationale,
+# see https://pub.dev/packages/lint.
+#include: package:lint/package.yaml
+
+# For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
+# Uncomment to specify additional rules.
+# linter:
+#   rules:
+#     - public_member_api_docs
+
+analyzer:
+  exclude:
+    - lib/src/pdfium_bindings.dart
