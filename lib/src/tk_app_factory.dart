@@ -20,7 +20,7 @@ class TkAppFactory {
   TkAppFactory(this.appName) {}
 
   Tcl createTcl(String sharedLib) {
-    final libraryPath = path.join("C:\\ActiveTcl\\bin", sharedLib);
+    final libraryPath = path.join(pathToDll, sharedLib);
     final dylib = DynamicLibrary.open(libraryPath);
     final tclBindings = TclBindings(dylib);
     final tclInstance = Tcl(tclBindings);
@@ -29,7 +29,7 @@ class TkAppFactory {
 
   Tk createTk(Interp tclInterp, String sharedLib) {
     //Directory.current.path
-    final libraryPath = path.join("C:\\ActiveTcl\\bin", sharedLib);
+    final libraryPath = path.join(pathToDll, sharedLib);
     final dylib = DynamicLibrary.open(libraryPath);
     final tkBindings = TkBindings(dylib);
     final tkInstance = Tk(tkBindings, tclInterp);
@@ -40,7 +40,10 @@ class TkAppFactory {
   late Interp interpInstance;
   late Tk tkInstance;
 
-  TkApplication create() {
+  String pathToDll = "C:\\ActiveTcl\\bin";
+
+  TkApplication create({String pathToDll = "C:\\ActiveTcl\\bin"}) {
+    this.pathToDll = pathToDll;
     tclInstance = createTcl(getDefaultTclLib());
     interpInstance = tclInstance.createInterp();
     tkInstance = createTk(interpInstance, getDefaultTkLib());

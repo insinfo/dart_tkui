@@ -112,20 +112,30 @@ class Tcl {
     return elements;
   }
 
-  /**
-     * Creates a new Tcl command for the specified interpreter.
-     *
-     * @param Interp $interp     The TCL interpreter.
-     * @param String $command    The command name.
-     * @param callable $callback The command callback.  function ($data, $interp, $objc, $objv
-     *
-     * @link https://www.tcl.tk/man/tcl8.6/TclLib/CrtObjCmd.htm
-     */
+  ///
+  /// Creates a new Tcl command for the specified interpreter.
+  ///
+  /// @param Interp $interp     The TCL interpreter.
+  /// @param String $command    The command name.
+  /// @param callable $callback The command
+  ///
+  /// Example:
+  ///  https://github.com/thatchristoph/vmd-cvs-github/blob/ff3c1b70fd62600fa29ba79819f5312980939a2a/plugins/pmepot/src/tcl_pmepot.c
+  ///  https://cpp.hotexamples.com/examples/-/-/Tcl_CreateObjCommand/cpp-tcl_createobjcommand-function-examples.html
+  ///
+  ///  callback.  function ($data, $interp, $objc, $objv)
+  ///
+  ///  int callback(ClientData nodata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {}
+  ///  Tcl_CreateObjCommand(interp,"pmepot_create",callback, (ClientData)NULL, (Tcl_CmdDeleteProc*)NULL);
+  ///
+  /// @link https://www.tcl.tk/man/tcl8.6/TclLib/CrtObjCmd.htm
+  ///
   createCommand(Interp interp, String command,
-      Pointer<NativeFunction<command_callback>> callback) {
+      Pointer<NativeFunction<command_callback>> callback,
+      {clientData}) {
     // TODO: check return value ?
     this.ffi.Tcl_CreateObjCommand(interp.cdata(), stringToNativeInt8(command),
-        callback, nullptr, nullptr);
+        callback, clientData == null ? nullptr : clientData, nullptr);
   }
 
   /**

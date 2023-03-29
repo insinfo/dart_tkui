@@ -1,0 +1,23 @@
+Package critcl::callback 1
+Meta platform win32-x86_64
+Meta build::date 2022-06-13
+Meta generated::by {critcl 3.1.18} build
+Meta generated::date critcl
+Meta build::require critcl::cutil
+Meta license Under a BSD license.
+Meta author {Andreas Kupries}
+Meta summary Critcl utility package providing functions and structures
+Meta summary to manage callbacks into Tcl, from C
+Meta description Part of Critcl
+Meta subject critcl callbacks {management of callbacks}
+Meta subject {Tcl callbacks from C}
+Meta require {Tcl 8.5}
+Meta entrytclcommand {eval [list ::apply {dir {
+    source [file join $dir critcl-rt.tcl]
+    set path [file join $dir [::critcl::runtime::MapPlatform]]
+    set ext [info sharedlibextension]
+    set lib [file join $path "callback$ext"]
+    load $lib Callback
+    package provide critcl::callback 1
+}} $dir]}
+Meta included critcl-rt.tcl win32-x86_64/callback.dll
