@@ -36,4 +36,6 @@ void main() {
 
 ```
 
+dart compile exe .\example\example.dart -o example.exe  
+
 

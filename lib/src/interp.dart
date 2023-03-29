@@ -1,7 +1,6 @@
 import 'dart:ffi';
 
 import 'package:dart_tkui/dart_tkui.dart';
-import 'package:ffi/ffi.dart';
 
 class Interp {
   Tcl _tcl;
@@ -68,15 +67,18 @@ class Interp {
 
   static int _callback(Pointer<Int32> data, Pointer<Tcl_Interp> interp,
       int objc, Pointer<Pointer<Tcl_Obj>> objv) {
+    var commandName = nativeInt8ToString(data.cast());
     var widgetsNames = <String>[];
     for (var i = 1; i < objc; i++) {
       widgetsNames.add(objv.elementAt(i).value.ref.asString());
     }
 
     _commands.forEach((element) {
-      element.values.first(widgetsNames);
+      if (element.keys.first == commandName) {
+        element.values.first(widgetsNames);
+      }
     });
-   
+    
     return 0;
   }
 
@@ -105,10 +107,13 @@ class Interp {
 
     _commands.add({commandName: callback});
 
+    var cmd = stringToNativeInt8(commandName);
+
     _tcl.createCommand(
       this,
       commandName,
       Pointer.fromFunction<command_callback>(_callback, exceptionalReturn),
+      clientData: cmd.cast<Int32>(),
     );
   }
 }
