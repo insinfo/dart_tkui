@@ -12,7 +12,7 @@ void main() {
   app.interp.createCommand('dart_tk_ui_Handler', (widgetsNames) {
     widgetsNames.forEach((name) {
       if (name == '.lbf1.b1') {
-        print('you clicked the "$name button');
+        print('you clicked the "$name" button');
         app.interp.eval('.lbf1.lb1 configure -text {Press button $count}');
         count++;
       }
